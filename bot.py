@@ -1,5 +1,5 @@
 import os
-from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
+from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, MenuButtonCommands
 from telegram.ext import (
     Application,
     CommandHandler,
@@ -51,6 +51,7 @@ def result_text(data):
 
 
 async def post_init(application):
+    # Mengatur daftar perintah bot
     await application.bot.set_my_commands([
         ("start", "🏠 Menu utama"),
         ("result", "📊 Lihat hasil"),
@@ -58,6 +59,8 @@ async def post_init(application):
         ("reset", "🗑️ Reset data"),
         ("help", "ℹ️ Bantuan"),
     ])
+    # Mengaktifkan Tombol Menu warna biru di pojok kiri bawah
+    await application.bot.set_chat_menu_button(menu_button=MenuButtonCommands())
 
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -358,15 +361,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-from telegram import MenuButtonCommands, MenuButtonWebApp, WebAppInfo
-
-# Tipe 1: Jika ingin tombol Menu menampilkan daftar Command
-await context.bot.set_chat_menu_button(menu_button=MenuButtonCommands())
-
-# Tipe 2: Jika ingin tombol Menu membuka Web App / Link Web
-await context.bot.set_chat_menu_button(
-    menu_button=MenuButtonWebApp(
-        text="Menu",
-        web_app=WebAppInfo(url="https://link-website-anda.com")
-    )
-    )
