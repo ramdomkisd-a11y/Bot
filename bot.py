@@ -358,3 +358,15 @@ def main():
 
 if __name__ == "__main__":
     main()
+from telegram import MenuButtonCommands, MenuButtonWebApp, WebAppInfo
+
+# Tipe 1: Jika ingin tombol Menu menampilkan daftar Command
+await context.bot.set_chat_menu_button(menu_button=MenuButtonCommands())
+
+# Tipe 2: Jika ingin tombol Menu membuka Web App / Link Web
+await context.bot.set_chat_menu_button(
+    menu_button=MenuButtonWebApp(
+        text="Menu",
+        web_app=WebAppInfo(url="https://link-website-anda.com")
+    )
+    )
